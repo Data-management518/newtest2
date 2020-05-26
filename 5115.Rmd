@@ -1,0 +1,63 @@
+---
+title: "05-11-In-class exercises-4"
+author: "TJLee"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: 2test
+    highlight: github
+
+---
+
+```{r}
+#
+#
+#
+library(animation)
+library(gganimate)
+#跑了這動畫跑非常久，不得以參考KY同學的將張數下修
+
+Brownian <- function(n = 11, pause = 0.05, nIter = 64, ...) {
+    x = rnorm(n)
+    y = rnorm(n)
+    i = 1
+    while (i <= nIter) {
+        plot(x, y, ...)
+        text(x, y, cex = 0.5)
+        x = x + rnorm(n)
+        y = y + rnorm(n)
+        Sys.sleep(pause)
+        i = i + 1
+    }
+} 
+
+saveGIF(Brownian(xlim = c(-20, 20), ylim = c(-20, 20),pch = 21, cex = 2, col = "cyan", bg = "lavender"))
+###
+```
+## test it
+```{r echo=FALSE, fig.cap="/Users/Tjlee/Desktop/weather/animation.gif"}
+knitr::include_graphics("/Users/Tjlee/Desktop/weather/animation.gif")
+```
+
+
+```{r}
+##此作法參考KY跟Chang, C. Y.兩位同學再進行微調
+Brownian2 <- function(n = 11, pause = 0.05,nIter = 8, ...) {
+    x = rnorm(n) 
+    y = rnorm(n) 
+    i = 1
+    repeat {
+      if(i > nIter) break # 重複做，一旦大於8就停止
+        plot(x, y, ...)
+        text(x, y, cex = 0.5)
+        x = x + rnorm(n)
+        y = y + rnorm(n)
+        Sys.sleep(pause)
+        i = i + 1
+    }
+} 
+Brownian2(xlim = c(-20, 20), ylim = c(-20, 20),pch = 21, cex = 2, col = "cyan", bg = "lavender")
+
+
+##由於不太會改fcn，因此先去理解他。
+###
